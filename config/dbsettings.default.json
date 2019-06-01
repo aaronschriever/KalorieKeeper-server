@@ -1,0 +1,9 @@
+
+
+{
+    "servername":"enter your server name",
+    "port":"port for db instance",
+    "username":"username",
+    "password":"password",
+    "db":"database name"
+} 
