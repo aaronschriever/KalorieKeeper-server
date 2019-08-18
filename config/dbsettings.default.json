@@ -5,5 +5,5 @@
     "port":"port for db instance",
     "username":"username",
     "password":"password",
-    "db":"database name"
+    "dbname":"database name"
 } 
