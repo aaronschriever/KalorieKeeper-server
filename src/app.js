@@ -9,7 +9,12 @@ var signup = require('./routes/signup');
 
 const url = 'mongodb://' +  dbconfig.username + ":" + dbconfig.password + "@" + dbconfig.servername + ':' + dbconfig.port + "/" + dbconfig.dbname;
 
-mongoose.connect(url, {useNewUrlParser: true});
+try {
+  mongoose.connect(url, {useNewUrlParser: true});
+} catch (error) {
+  console.log("error " + error);
+}
+
 
 app.use(express.json());
 app.use('/signup', signup);
