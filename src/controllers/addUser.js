@@ -1,8 +1,9 @@
 const User = require("./../models/user");
 const appSettings = require("./../../config/app.settings.json");
 const bcrypt = require("bcrypt");
+const checkUserExists = require("./checkUserexists");
 
-async function addUser(username, password) {
+async function handleUser(username, password) {
   var hash = await bcrypt.hash(password, appSettings.salt_rounds, function(
     err,
     hash
@@ -22,25 +23,7 @@ async function addUser(username, password) {
   });
 }
 
-async function checkUserExists(username) {
-  return new Promise((resolve, reject) => {
-    User.find({ username: username }, (err, result) => {
-      console.log(result);
-      let exists;
-      if (result.length !== 0) {
-        console.log("user already exists");
-        console.log(`result: ${result}`);
-        exists = true;
-      } else {
-        console.log(`${username} does not exist`);
-        exists = false;
-      }
-      resolve(exists);
-    });
-  });
-}
-
-async function user(req, res, next) {
+async function addUser(req, res, next) {
   // console.log(req);
   if (!req.body.username || !req.body.password) {
     console.error("no username or password");
@@ -51,7 +34,7 @@ async function user(req, res, next) {
 
     if (!searchUser) {
       console.log(`adding user ${req.body.username}`);
-      addUser(req.body.username, req.body.password);
+      handleUser(req.body.username, req.body.password);
       return res.send(`signed in as  ${req.body.username}`);
     } else {
       return res.status(401).json({ error: "user already exists" });
@@ -63,4 +46,4 @@ async function user(req, res, next) {
   // console.log(` user exists? ${checkUserExists(req.body.username)}`);
 }
 
-module.exports = user;
+module.exports = addUser;
