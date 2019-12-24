@@ -1,7 +1,9 @@
 const dbconfig = require("../config/dbsettings");
 const express = require('express');
 const mongoose = require('mongoose');
-const assert = require('assert');
+const cookieHandler = require('./controllers/cookieHandler');
+//const assert = require('assert');
+const cookieParser = require("cookie-parser");
 const app = express();
 var ingredient = require('./routes/ingredient');
 var signup = require('./routes/signup');
@@ -17,6 +19,7 @@ try {
 
 
 app.use(express.json());
+app.use(cookieParser());
 app.use('/signup', signup);
 app.use('/signin', signin);
 app.use('/ingredient', ingredient);

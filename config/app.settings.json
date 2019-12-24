@@ -1,4 +1,8 @@
 {
     "port":3000,
-    "salt_rounds":10
+    "salt_rounds":10,
+    "cookie": {
+        "secret": "wewillneedtosetthis",
+        "name":"kksession"
+    }
 }
