@@ -35,7 +35,7 @@ async function addUser(req, res, next) {
     if (!searchUser) {
       console.log(`adding user ${req.body.username}`);
       handleUser(req.body.username, req.body.password);
-      return res.send(`signed in as  ${req.body.username}`);
+      next();
     } else {
       return res.status(401).json({ error: "user already exists" });
     }
